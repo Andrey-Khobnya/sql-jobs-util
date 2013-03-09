@@ -1,0 +1,47 @@
+{
+	"title": "Just copy `entity` from db `A` to db `B`",
+	"databases": {
+		"db_A": {
+			"type": "MySQLdb",
+			"parameters": {
+				"host": "172.168.0.1",
+				"user": "root",
+				"passwd": "password",
+				"db": "a",
+				"charset": "utf8"
+			}
+		},
+		"db_B": {
+			"type": "MySQLdb",
+			"parameters": {
+				"host": "172.168.0.2",
+				"user": "root",
+				"passwd": "password",
+				"db": "b",
+				"charset": "utf8"
+			}
+		}
+	},
+	"tasks": [
+		[
+			{
+				"database": "db_A",
+				"query": "SELECT * FROM entities WHERE id = %(id)s"
+			},
+			{
+				"database": "db_B",
+				"query": "INSERT INTO entities VALUES (?*)"				
+			}
+		],
+		[
+			{
+				"database": "db_A",
+				"query": "SELECT * FROM properties WHERE entity_id = %(id)s"
+			},
+			{
+				"database": "db_B",
+				"query": "INSERT INTO properties VALUES (?*)"				
+			}
+		]
+	]
+}

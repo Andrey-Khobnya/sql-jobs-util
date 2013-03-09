@@ -1,0 +1,54 @@
+{
+	"title": "Calculate CRC-32 of first column of `entity` of db `A` and insert into `hashes` of db `B` and db `C`",
+	"databases": {
+		"db_A": {
+			"type": "MySQLdb",
+			"parameters": {
+				"host": "172.168.0.1",
+				"user": "root",
+				"passwd": "password",
+				"db": "a",
+				"charset": "utf8"
+			}
+		},
+		"db_B": {
+			"type": "MySQLdb",
+			"parameters": {
+				"host": "172.168.0.2",
+				"user": "root",
+				"passwd": "password",
+				"db": "b",
+				"charset": "utf8"
+			}
+		},
+		"db_C": {
+			"type": "MySQLdb",
+			"parameters": {
+				"host": "172.168.0.3",
+				"user": "root",
+				"passwd": "password",
+				"db": "c",
+				"charset": "utf8"
+			}
+		}
+	},
+	"tasks": [
+		[
+			{
+				"database": "db_A",
+				"query": "SELECT * FROM entities WHERE id = %(id)s"
+			},
+			{
+				"transform": "calculate_crc"
+			},
+			{
+				"database": "db_B",
+				"query": "INSERT INTO hashes VALUES (?*)"				
+			},
+			{
+				"database": "db_C",
+				"query": "INSERT INTO hashes VALUES (?*)"				
+			}
+		]
+	]
+}
