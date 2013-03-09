@@ -42,7 +42,7 @@ Parameters in JSON format.
 ## How to write jobs
 
 See examples below. Note that it is necessary to use placeholders supported by specific 
-driver. Also you can use special placeholder ?* that expanded in several placeholders 
+driver. Also you can use special ?* placeholder that expanded in several placeholders 
 depending on the number of parameters. SQL-Jobs-Util provide this type of placeholder 
 for drivers *MySQLdb*, *psycopg2*, *sqlite3* and *ibm_db*. If you would like to use 
 any other drivers you should define standard placeholder in *placeholder* property for 
